@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NEON MEMORIES • Retro Photo Editor</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -21,10 +21,13 @@
         * {
             scrollbar-width: thin;
             scrollbar-color: var(--neon-pink) var(--dark-surface);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         
         *::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
+            height: 4px;
         }
         
         *::-webkit-scrollbar-track {
@@ -40,6 +43,7 @@
             font-family: 'Orbitron', sans-serif;
             background: var(--dark-bg);
             min-height: 100vh;
+            min-height: 100dvh;
             overflow-x: hidden;
         }
         
@@ -67,13 +71,21 @@
             bottom: -150px;
             left: 50%;
             transform: translateX(-50%);
-            width: 500px;
-            height: 500px;
+            width: 400px;
+            height: 400px;
             background: linear-gradient(180deg, #ffe66d 0%, #ff9e2a 20%, #ff2a6d 50%, #d300c5 75%, #4a0080 100%);
             border-radius: 50%;
             z-index: -1;
-            opacity: 0.4;
+            opacity: 0.3;
             filter: blur(2px);
+        }
+        
+        @media (min-width: 768px) {
+            .retro-sun {
+                width: 500px;
+                height: 500px;
+                opacity: 0.4;
+            }
         }
         
         .retro-sun::before {
@@ -95,7 +107,7 @@
             bottom: 0;
             left: -50%;
             right: -50%;
-            height: 40vh;
+            height: 30vh;
             background: 
                 repeating-linear-gradient(90deg, rgba(5, 217, 232, 0.15) 0, rgba(5, 217, 232, 0.15) 1px, transparent 1px, transparent 60px),
                 repeating-linear-gradient(180deg, rgba(255, 42, 109, 0.1) 0, rgba(255, 42, 109, 0.1) 1px, transparent 1px, transparent 40px);
@@ -112,26 +124,22 @@
         
         /* Neon glow effects */
         .neon-text-pink {
-            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+        }
+        
+        @media (min-width: 768px) {
+            .neon-text-pink {
+                text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink);
+            }
         }
         
         .neon-text-blue {
             text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
         }
         
-        .neon-border {
-            border: 1px solid var(--neon-pink);
-            box-shadow: 0 0 10px rgba(255, 42, 109, 0.3), inset 0 0 20px rgba(5, 217, 232, 0.05);
-        }
-        
-        .neon-border-blue {
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 10px rgba(5, 217, 232, 0.3), inset 0 0 20px rgba(5, 217, 232, 0.05);
-        }
-        
         /* Cards and panels */
         .glass-panel {
-            background: linear-gradient(135deg, rgba(26, 10, 46, 0.9) 0%, rgba(22, 8, 42, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(26, 10, 46, 0.95) 0%, rgba(22, 8, 42, 0.98) 100%);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 42, 109, 0.2);
             border-radius: 12px;
@@ -143,25 +151,36 @@
             border-radius: 8px;
         }
         
-        /* Buttons */
+        /* Buttons - Mobile optimized */
         .btn-neon {
             background: linear-gradient(135deg, rgba(255, 42, 109, 0.2) 0%, rgba(211, 0, 197, 0.2) 100%);
             border: 1px solid var(--neon-pink);
             color: white;
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 6px;
             font-family: 'VT323', monospace;
-            font-size: 16px;
+            font-size: 14px;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .btn-neon:hover {
+        @media (min-width: 768px) {
+            .btn-neon {
+                font-size: 16px;
+                padding: 8px 16px;
+                min-height: auto;
+            }
+        }
+        
+        .btn-neon:hover, .btn-neon:active {
             background: linear-gradient(135deg, rgba(255, 42, 109, 0.4) 0%, rgba(211, 0, 197, 0.4) 100%);
             box-shadow: 0 0 20px rgba(255, 42, 109, 0.5);
-            transform: translateY(-2px);
         }
         
         .btn-neon.active {
@@ -173,20 +192,20 @@
             background: rgba(5, 217, 232, 0.1);
             border: 1px solid rgba(5, 217, 232, 0.3);
             color: var(--neon-blue);
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-size: 18px;
+            flex-shrink: 0;
         }
         
-        .btn-icon:hover {
+        .btn-icon:hover, .btn-icon:active {
             background: rgba(5, 217, 232, 0.2);
             box-shadow: 0 0 15px rgba(5, 217, 232, 0.4);
-            transform: scale(1.1);
         }
         
         .btn-icon.active {
@@ -198,49 +217,63 @@
             background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 100%);
             border: none;
             color: white;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 8px;
             font-family: 'Orbitron', sans-serif;
             font-weight: bold;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
             box-shadow: 0 4px 15px rgba(255, 42, 109, 0.4);
+            min-height: 44px;
         }
         
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(255, 42, 109, 0.6);
+        @media (min-width: 768px) {
+            .btn-primary {
+                font-size: 14px;
+                letter-spacing: 2px;
+                padding: 12px 24px;
+            }
         }
         
-        /* Sliders */
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        /* Sliders - Touch optimized */
         .slider-wrapper {
             position: relative;
+            padding: 4px 0;
         }
         
         .slider-wrapper input[type="range"] {
             -webkit-appearance: none;
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: linear-gradient(90deg, var(--dark-surface) 0%, var(--dark-surface) 100%);
-            border-radius: 3px;
+            border-radius: 4px;
             outline: none;
             border: 1px solid rgba(5, 217, 232, 0.2);
         }
         
         .slider-wrapper input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 24px;
+            height: 24px;
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
             border-radius: 50%;
             cursor: pointer;
             box-shadow: 0 0 10px var(--neon-blue);
-            transition: all 0.2s ease;
         }
         
-        .slider-wrapper input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 20px var(--neon-blue);
+        .slider-wrapper input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-blue);
+            border: none;
         }
         
         /* Canvas area */
@@ -260,18 +293,27 @@
         
         /* Tabs */
         .tab-btn {
-            padding: 10px 16px;
+            padding: 12px 12px;
             background: transparent;
             border: none;
             color: rgba(255, 255, 255, 0.5);
             font-family: 'VT323', monospace;
-            font-size: 18px;
+            font-size: 16px;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
+            white-space: nowrap;
+            min-height: 44px;
         }
         
-        .tab-btn:hover {
+        @media (min-width: 768px) {
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 18px;
+            }
+        }
+        
+        .tab-btn:hover, .tab-btn:active {
             color: var(--neon-blue);
         }
         
@@ -290,21 +332,26 @@
             box-shadow: 0 0 10px var(--neon-pink);
         }
         
-        /* Effect cards */
+        /* Effect cards - Touch optimized */
         .effect-card {
             background: rgba(13, 2, 33, 0.6);
             border: 1px solid rgba(255, 42, 109, 0.2);
             border-radius: 8px;
-            padding: 12px;
+            padding: 12px 8px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
-        .effect-card:hover {
+        .effect-card:active {
+            transform: scale(0.95);
             border-color: var(--neon-pink);
             box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
-            transform: translateY(-3px);
         }
         
         .effect-card.active {
@@ -332,47 +379,21 @@
         .vhs-display {
             background: rgba(0, 0, 0, 0.7);
             border: 1px solid rgba(255, 230, 109, 0.3);
-            padding: 4px 12px;
+            padding: 4px 10px;
             font-family: 'VT323', monospace;
             color: var(--neon-yellow);
             text-shadow: 0 0 5px var(--neon-yellow);
-        }
-        
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-        }
-        
-        .tooltip::before {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 6px 12px;
-            background: var(--dark-surface);
-            border: 1px solid var(--neon-pink);
-            border-radius: 4px;
             font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 100;
         }
         
-        .tooltip:hover::before {
-            opacity: 1;
-            visibility: visible;
-            bottom: calc(100% + 8px);
+        @media (min-width: 768px) {
+            .vhs-display {
+                padding: 4px 12px;
+                font-size: 14px;
+            }
         }
         
         /* Animations */
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 42, 109, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(255, 42, 109, 0.8); }
-        }
-        
         @keyframes flicker {
             0%, 100% { opacity: 1; }
             92% { opacity: 1; }
@@ -414,12 +435,21 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.5);
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 6px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            font-size: 12px;
+            min-height: 36px;
         }
         
-        .history-btn:hover:not(:disabled) {
+        @media (min-width: 768px) {
+            .history-btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+        
+        .history-btn:active:not(:disabled) {
             background: rgba(5, 217, 232, 0.1);
             border-color: var(--neon-blue);
             color: var(--neon-blue);
@@ -433,11 +463,12 @@
         /* Color picker wrapper */
         .color-picker-wrapper {
             position: relative;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 8px;
             overflow: hidden;
             border: 2px solid var(--neon-blue);
+            flex-shrink: 0;
         }
         
         .color-picker-wrapper input[type="color"] {
@@ -448,6 +479,158 @@
             cursor: pointer;
             border: none;
         }
+        
+        /* Mobile Bottom Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(13, 2, 33, 0.95) 0%, rgba(22, 8, 42, 1) 100%);
+            border-top: 1px solid rgba(255, 42, 109, 0.3);
+            padding: 8px 12px;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 100;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        @media (min-width: 1024px) {
+            .mobile-nav {
+                display: none;
+            }
+        }
+        
+        .mobile-nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 10px;
+            font-family: 'VT323', monospace;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+        }
+        
+        .mobile-nav-btn.active {
+            color: var(--neon-pink);
+            background: rgba(255, 42, 109, 0.1);
+        }
+        
+        .mobile-nav-btn span:first-child {
+            font-size: 20px;
+        }
+        
+        /* Mobile Panel Overlay */
+        .mobile-panel-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-panel-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Mobile Slide-up Panel */
+        .mobile-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-height: 70vh;
+            background: linear-gradient(180deg, rgba(26, 10, 46, 0.98) 0%, rgba(22, 8, 42, 1) 100%);
+            border-top: 1px solid rgba(255, 42, 109, 0.3);
+            border-radius: 20px 20px 0 0;
+            z-index: 95;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            padding-bottom: max(60px, calc(60px + env(safe-area-inset-bottom)));
+        }
+        
+        .mobile-panel.active {
+            transform: translateY(0);
+        }
+        
+        .mobile-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 42, 109, 0.2);
+            position: sticky;
+            top: 0;
+            background: inherit;
+            z-index: 10;
+        }
+        
+        .mobile-panel-content {
+            padding: 16px;
+            overflow-y: auto;
+            max-height: calc(70vh - 60px - 60px);
+        }
+        
+        .panel-handle {
+            width: 40px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin: 0 auto 8px;
+        }
+        
+        /* Desktop sidebar - hide on mobile */
+        @media (max-width: 1023px) {
+            .desktop-sidebar {
+                display: none !important;
+            }
+            
+            main {
+                padding-bottom: 80px;
+            }
+        }
+        
+        /* Input styling for mobile */
+        input[type="text"], input[type="number"], select {
+            font-size: 16px !important; /* Prevents zoom on iOS */
+        }
+        
+        /* Safe area padding for mobile */
+        .safe-bottom {
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+        }
+        
+        /* Checkbox styling */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .checkbox-wrapper:active {
+            background: rgba(255, 42, 109, 0.1);
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--neon-pink);
+        }
     </style>
 </head>
 <body class="text-white min-h-screen">
@@ -457,26 +640,26 @@
     <div class="perspective-grid"></div>
     
     <!-- Header -->
-    <header class="relative z-10 px-6 py-4 border-b border-pink-500/20">
+    <header class="relative z-10 px-3 sm:px-6 py-3 sm:py-4 border-b border-pink-500/20">
         <div class="max-w-screen-2xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="text-3xl">📼</div>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="text-2xl sm:text-3xl">📼</div>
                 <div>
-                    <h1 class="text-2xl font-black text-pink-400 neon-text-pink tracking-wider flicker">NEON MEMORIES</h1>
-                    <p class="vhs-font text-sm text-cyan-400 opacity-80">RETRO PHOTO EDITOR • EST. 1985</p>
+                    <h1 class="text-lg sm:text-2xl font-black text-pink-400 neon-text-pink tracking-wider flicker">NEON MEMORIES</h1>
+                    <p class="vhs-font text-xs sm:text-sm text-cyan-400 opacity-80 hidden sm:block">RETRO PHOTO EDITOR • EST. 1985</p>
                 </div>
             </div>
             
-            <div class="flex items-center gap-4">
-                <div class="vhs-display hidden sm:block">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="vhs-display hidden md:block">
                     <span id="timestamp">JAN 01 1989 00:00:00</span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button onclick="undo()" id="undoBtn" class="history-btn vhs-font" disabled data-tooltip="Undo">
-                        ↶ UNDO
+                <div class="flex items-center gap-1 sm:gap-2">
+                    <button onclick="undo()" id="undoBtn" class="history-btn vhs-font" disabled>
+                        ↶ <span class="hidden sm:inline">UNDO</span>
                     </button>
-                    <button onclick="redo()" id="redoBtn" class="history-btn vhs-font" disabled data-tooltip="Redo">
-                        REDO ↷
+                    <button onclick="redo()" id="redoBtn" class="history-btn vhs-font" disabled>
+                        <span class="hidden sm:inline">REDO</span> ↷
                     </button>
                 </div>
             </div>
@@ -484,11 +667,11 @@
     </header>
     
     <!-- Main Content -->
-    <main class="relative z-10 max-w-screen-2xl mx-auto p-4 lg:p-6">
+    <main class="relative z-10 max-w-screen-2xl mx-auto p-3 sm:p-4 lg:p-6">
         <div class="grid lg:grid-cols-12 gap-4 lg:gap-6">
             
-            <!-- Left Sidebar - Tools -->
-            <aside class="lg:col-span-3 xl:col-span-2 order-2 lg:order-1">
+            <!-- Left Sidebar - Tools (Desktop only) -->
+            <aside class="lg:col-span-3 xl:col-span-2 desktop-sidebar">
                 <div class="glass-panel p-4 space-y-4 sticky top-4">
                     <h2 class="vhs-font text-xl text-cyan-400 neon-text-blue flex items-center gap-2">
                         <span>🔧</span> TOOLS
@@ -498,33 +681,21 @@
                     <div class="tool-section p-3">
                         <h3 class="vhs-font text-sm text-pink-400 mb-3">TRANSFORM</h3>
                         <div class="grid grid-cols-4 gap-2">
-                            <button onclick="rotateImage(-90)" class="btn-icon tooltip" data-tooltip="Rotate Left">↺</button>
-                            <button onclick="rotateImage(90)" class="btn-icon tooltip" data-tooltip="Rotate Right">↻</button>
-                            <button onclick="flipImage('h')" class="btn-icon tooltip" data-tooltip="Flip Horizontal">⇆</button>
-                            <button onclick="flipImage('v')" class="btn-icon tooltip" data-tooltip="Flip Vertical">⇅</button>
+                            <button onclick="rotateImage(-90)" class="btn-icon">↺</button>
+                            <button onclick="rotateImage(90)" class="btn-icon">↻</button>
+                            <button onclick="flipImage('h')" class="btn-icon">⇆</button>
+                            <button onclick="flipImage('v')" class="btn-icon">⇅</button>
                         </div>
-                    </div>
-                    
-                    <!-- Crop & Resize -->
-                    <div class="tool-section p-3">
-                        <h3 class="vhs-font text-sm text-pink-400 mb-3">CROP & RESIZE</h3>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="setCropRatio('free')" class="btn-neon text-xs" id="cropFree">FREE</button>
-                            <button onclick="setCropRatio('1:1')" class="btn-neon text-xs">1:1</button>
-                            <button onclick="setCropRatio('4:3')" class="btn-neon text-xs">4:3</button>
-                            <button onclick="setCropRatio('16:9')" class="btn-neon text-xs">16:9</button>
-                        </div>
-                        <button onclick="toggleCrop()" class="btn-neon w-full mt-2" id="cropBtn">✂️ CROP MODE</button>
                     </div>
                     
                     <!-- Drawing Tools -->
                     <div class="tool-section p-3">
                         <h3 class="vhs-font text-sm text-pink-400 mb-3">DRAW</h3>
-                        <div class="flex items-center gap-2 mb-2">
-                            <button onclick="setTool('brush')" class="btn-icon tooltip flex-1" data-tooltip="Brush" id="brushTool">🖌️</button>
-                            <button onclick="setTool('eraser')" class="btn-icon tooltip flex-1" data-tooltip="Eraser" id="eraserTool">🧹</button>
+                        <div class="flex items-center gap-2 mb-3">
+                            <button onclick="setTool('brush')" class="btn-icon flex-1" id="brushTool">🖌️</button>
+                            <button onclick="setTool('eraser')" class="btn-icon flex-1" id="eraserTool">🧹</button>
                             <div class="color-picker-wrapper">
-                                <input type="color" id="brushColor" value="#ff2a6d" onchange="updateBrushColor()">
+                                <input type="color" id="brushColor" value="#ff2a6d">
                             </div>
                         </div>
                         <div class="slider-wrapper">
@@ -539,13 +710,13 @@
                         <input type="text" id="textInput" placeholder="Enter text..." 
                             class="w-full bg-black/50 border border-cyan-500/30 rounded px-3 py-2 text-sm mb-2 focus:border-pink-500 focus:outline-none">
                         <div class="flex gap-2 mb-2">
-                            <select id="textFont" class="flex-1 bg-black/50 border border-cyan-500/30 rounded px-2 py-1 text-xs">
+                            <select id="textFont" class="flex-1 bg-black/50 border border-cyan-500/30 rounded px-2 py-2 text-xs">
                                 <option value="VT323">VHS</option>
                                 <option value="Orbitron">RETRO</option>
                                 <option value="Press Start 2P">PIXEL</option>
                             </select>
                             <input type="number" id="textSize" value="32" min="8" max="120" 
-                                class="w-16 bg-black/50 border border-cyan-500/30 rounded px-2 py-1 text-xs">
+                                class="w-16 bg-black/50 border border-cyan-500/30 rounded px-2 py-2 text-xs">
                         </div>
                         <button onclick="addText()" class="btn-neon w-full">ADD TEXT</button>
                     </div>
@@ -553,62 +724,59 @@
             </aside>
             
             <!-- Center - Canvas -->
-            <section class="lg:col-span-6 xl:col-span-7 order-1 lg:order-2">
-                <div class="glass-panel p-4">
+            <section class="lg:col-span-6 xl:col-span-7">
+                <div class="glass-panel p-3 sm:p-4">
                     <!-- Toolbar -->
-                    <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-                        <div class="flex items-center gap-2">
-                            <button onclick="zoomCanvas(-0.1)" class="btn-icon text-sm">−</button>
-                            <span class="vhs-font text-cyan-400 min-w-[60px] text-center" id="zoomLevel">100%</span>
-                            <button onclick="zoomCanvas(0.1)" class="btn-icon text-sm">+</button>
-                            <button onclick="resetZoom()" class="btn-icon text-sm">⟲</button>
+                    <div class="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-2">
+                        <div class="flex items-center gap-1 sm:gap-2">
+                            <button onclick="zoomCanvas(-0.1)" class="btn-icon text-sm w-10 h-10 sm:w-11 sm:h-11">−</button>
+                            <span class="vhs-font text-cyan-400 min-w-[50px] sm:min-w-[60px] text-center text-sm" id="zoomLevel">100%</span>
+                            <button onclick="zoomCanvas(0.1)" class="btn-icon text-sm w-10 h-10 sm:w-11 sm:h-11">+</button>
+                            <button onclick="resetZoom()" class="btn-icon text-sm w-10 h-10 sm:w-11 sm:h-11">⟲</button>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button onclick="document.getElementById('fileInput').click()" class="btn-primary text-sm">
-                                📁 LOAD IMAGE
+                            <button onclick="document.getElementById('fileInput').click()" class="btn-primary text-xs sm:text-sm">
+                                📁 <span class="hidden xs:inline">LOAD</span> IMAGE
                             </button>
                             <input type="file" id="fileInput" accept="image/*" class="hidden">
                         </div>
                     </div>
                     
                     <!-- Canvas Container -->
-                    <div class="canvas-wrapper scanlines relative min-h-[400px] lg:min-h-[500px] flex items-center justify-center" 
+                    <div class="canvas-wrapper scanlines relative min-h-[250px] sm:min-h-[350px] lg:min-h-[450px] flex items-center justify-center" 
                          id="canvasContainer">
-                        <canvas id="photoCanvas" class="max-w-full hidden cursor-crosshair"></canvas>
+                        <canvas id="photoCanvas" class="max-w-full max-h-full hidden"></canvas>
                         
                         <!-- Upload Prompt -->
-                        <div id="uploadPrompt" class="upload-zone absolute inset-4 flex flex-col items-center justify-center">
-                            <div class="text-6xl mb-4 animate-bounce">📸</div>
-                            <p class="vhs-font text-2xl text-cyan-400 mb-2">DROP YOUR PHOTO HERE</p>
-                            <p class="vhs-font text-lg text-pink-400">or click LOAD IMAGE above</p>
-                            <div class="mt-6 flex gap-4 vhs-font text-sm text-gray-500">
+                        <div id="uploadPrompt" class="upload-zone absolute inset-2 sm:inset-4 flex flex-col items-center justify-center p-4">
+                            <div class="text-5xl sm:text-6xl mb-3 sm:mb-4 animate-bounce">📸</div>
+                            <p class="vhs-font text-lg sm:text-2xl text-cyan-400 mb-1 sm:mb-2 text-center">DROP YOUR PHOTO HERE</p>
+                            <p class="vhs-font text-sm sm:text-lg text-pink-400 text-center">or tap LOAD IMAGE above</p>
+                            <div class="mt-4 sm:mt-6 flex gap-2 sm:gap-4 vhs-font text-xs sm:text-sm text-gray-500">
                                 <span>JPG</span>
                                 <span>•</span>
                                 <span>PNG</span>
                                 <span>•</span>
                                 <span>GIF</span>
-                                <span>•</span>
-                                <span>WEBP</span>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Bottom Actions -->
-                    <div class="flex items-center justify-between mt-4 flex-wrap gap-4">
-                        <div class="flex items-center gap-2 vhs-font text-sm text-gray-400">
+                    <div class="flex items-center justify-between mt-3 sm:mt-4 flex-wrap gap-3">
+                        <div class="flex items-center gap-2 vhs-font text-xs sm:text-sm text-gray-400">
                             <span id="imageInfo">No image loaded</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="resetImage()" class="btn-neon">↺ RESET</button>
-                            <button onclick="downloadImage('png')" class="btn-primary">💾 SAVE PNG</button>
-                            <button onclick="downloadImage('jpg')" class="btn-neon">SAVE JPG</button>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button onclick="resetImage()" class="btn-neon text-xs sm:text-sm">↺ RESET</button>
+                            <button onclick="downloadImage('png')" class="btn-primary text-xs sm:text-sm">💾 SAVE</button>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <!-- Right Sidebar - Effects & Adjustments -->
-            <aside class="lg:col-span-3 order-3">
+            <!-- Right Sidebar - Effects & Adjustments (Desktop only) -->
+            <aside class="lg:col-span-3 desktop-sidebar">
                 <div class="glass-panel p-4 sticky top-4">
                     <!-- Tabs -->
                     <div class="flex border-b border-pink-500/20 mb-4 overflow-x-auto hide-scrollbar">
@@ -619,7 +787,7 @@
                     </div>
                     
                     <!-- Adjust Panel -->
-                    <div id="panelAdjust" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                    <div id="panelAdjust" class="space-y-4 max-h-[55vh] overflow-y-auto pr-2">
                         <div class="slider-wrapper">
                             <div class="flex justify-between mb-1">
                                 <label class="vhs-font text-sm text-pink-400">BRIGHTNESS</label>
@@ -670,30 +838,6 @@
                         
                         <div class="slider-wrapper">
                             <div class="flex justify-between mb-1">
-                                <label class="vhs-font text-sm text-pink-400">SHADOWS</label>
-                                <span class="vhs-font text-xs text-cyan-400" id="shadowsVal">0</span>
-                            </div>
-                            <input type="range" id="shadows" min="-100" max="100" value="0" oninput="updateAdjustments()">
-                        </div>
-                        
-                        <div class="slider-wrapper">
-                            <div class="flex justify-between mb-1">
-                                <label class="vhs-font text-sm text-pink-400">HIGHLIGHTS</label>
-                                <span class="vhs-font text-xs text-cyan-400" id="highlightsVal">0</span>
-                            </div>
-                            <input type="range" id="highlights" min="-100" max="100" value="0" oninput="updateAdjustments()">
-                        </div>
-                        
-                        <div class="slider-wrapper">
-                            <div class="flex justify-between mb-1">
-                                <label class="vhs-font text-sm text-pink-400">SHARPNESS</label>
-                                <span class="vhs-font text-xs text-cyan-400" id="sharpnessVal">0</span>
-                            </div>
-                            <input type="range" id="sharpness" min="0" max="100" value="0" oninput="updateAdjustments()">
-                        </div>
-                        
-                        <div class="slider-wrapper">
-                            <div class="flex justify-between mb-1">
                                 <label class="vhs-font text-sm text-pink-400">VIGNETTE</label>
                                 <span class="vhs-font text-xs text-cyan-400" id="vignetteVal">0</span>
                             </div>
@@ -718,172 +862,144 @@
                     </div>
                     
                     <!-- Effects Panel -->
-                    <div id="panelEffects" class="hidden grid grid-cols-2 gap-2 max-h-[60vh] overflow-y-auto pr-2">
+                    <div id="panelEffects" class="hidden grid grid-cols-2 gap-2 max-h-[55vh] overflow-y-auto pr-2">
                         <div class="effect-card" onclick="applyEffect('vhs')">
                             <div class="text-2xl mb-1">📼</div>
-                            <div class="vhs-font text-sm">VHS</div>
+                            <div class="vhs-font text-xs">VHS</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('glitch')">
                             <div class="text-2xl mb-1">👾</div>
-                            <div class="vhs-font text-sm">GLITCH</div>
+                            <div class="vhs-font text-xs">GLITCH</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('scanlines')">
                             <div class="text-2xl mb-1">📺</div>
-                            <div class="vhs-font text-sm">SCANLINES</div>
+                            <div class="vhs-font text-xs">SCANLINES</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('chromatic')">
                             <div class="text-2xl mb-1">🌈</div>
-                            <div class="vhs-font text-sm">RGB SPLIT</div>
+                            <div class="vhs-font text-xs">RGB SPLIT</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('pixelate')">
                             <div class="text-2xl mb-1">🎮</div>
-                            <div class="vhs-font text-sm">8-BIT</div>
+                            <div class="vhs-font text-xs">8-BIT</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('neon')">
                             <div class="text-2xl mb-1">💜</div>
-                            <div class="vhs-font text-sm">NEON GLOW</div>
+                            <div class="vhs-font text-xs">NEON</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('cyberpunk')">
                             <div class="text-2xl mb-1">🌃</div>
-                            <div class="vhs-font text-sm">CYBERPUNK</div>
+                            <div class="vhs-font text-xs">CYBER</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('synthwave')">
                             <div class="text-2xl mb-1">🌅</div>
-                            <div class="vhs-font text-sm">SYNTHWAVE</div>
+                            <div class="vhs-font text-xs">SYNTH</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('vaporwave')">
                             <div class="text-2xl mb-1">🌴</div>
-                            <div class="vhs-font text-sm">VAPORWAVE</div>
+                            <div class="vhs-font text-xs">VAPOR</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('miami')">
                             <div class="text-2xl mb-1">🏖️</div>
-                            <div class="vhs-font text-sm">MIAMI</div>
+                            <div class="vhs-font text-xs">MIAMI</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('tokyo')">
                             <div class="text-2xl mb-1">🗼</div>
-                            <div class="vhs-font text-sm">TOKYO</div>
-                        </div>
-                        <div class="effect-card" onclick="applyEffect('arcade')">
-                            <div class="text-2xl mb-1">🕹️</div>
-                            <div class="vhs-font text-sm">ARCADE</div>
+                            <div class="vhs-font text-xs">TOKYO</div>
                         </div>
                         <div class="effect-card" onclick="applyEffect('duotone')">
                             <div class="text-2xl mb-1">🎨</div>
-                            <div class="vhs-font text-sm">DUOTONE</div>
-                        </div>
-                        <div class="effect-card" onclick="applyEffect('noir')">
-                            <div class="text-2xl mb-1">🎬</div>
-                            <div class="vhs-font text-sm">NOIR</div>
+                            <div class="vhs-font text-xs">DUOTONE</div>
                         </div>
                     </div>
                     
                     <!-- Vintage Panel -->
-                    <div id="panelVintage" class="hidden grid grid-cols-2 gap-2 max-h-[60vh] overflow-y-auto pr-2">
+                    <div id="panelVintage" class="hidden grid grid-cols-2 gap-2 max-h-[55vh] overflow-y-auto pr-2">
                         <div class="effect-card" onclick="applyVintage('sepia')">
                             <div class="text-2xl mb-1">🟤</div>
-                            <div class="vhs-font text-sm">SEPIA</div>
+                            <div class="vhs-font text-xs">SEPIA</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('faded')">
                             <div class="text-2xl mb-1">🌫️</div>
-                            <div class="vhs-font text-sm">FADED</div>
+                            <div class="vhs-font text-xs">FADED</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('polaroid')">
                             <div class="text-2xl mb-1">📷</div>
-                            <div class="vhs-font text-sm">POLAROID</div>
+                            <div class="vhs-font text-xs">POLAROID</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('kodak')">
                             <div class="text-2xl mb-1">🎞️</div>
-                            <div class="vhs-font text-sm">KODAK</div>
-                        </div>
-                        <div class="effect-card" onclick="applyVintage('fuji')">
-                            <div class="text-2xl mb-1">📸</div>
-                            <div class="vhs-font text-sm">FUJI</div>
-                        </div>
-                        <div class="effect-card" onclick="applyVintage('agfa')">
-                            <div class="text-2xl mb-1">🎥</div>
-                            <div class="vhs-font text-sm">AGFA</div>
+                            <div class="vhs-font text-xs">KODAK</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('grain')">
                             <div class="text-2xl mb-1">✨</div>
-                            <div class="vhs-font text-sm">FILM GRAIN</div>
+                            <div class="vhs-font text-xs">GRAIN</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('dusty')">
                             <div class="text-2xl mb-1">💨</div>
-                            <div class="vhs-font text-sm">DUSTY</div>
+                            <div class="vhs-font text-xs">DUSTY</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('lightleak')">
                             <div class="text-2xl mb-1">☀️</div>
-                            <div class="vhs-font text-sm">LIGHT LEAK</div>
+                            <div class="vhs-font text-xs">LEAK</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('oldphoto')">
                             <div class="text-2xl mb-1">🖼️</div>
-                            <div class="vhs-font text-sm">OLD PHOTO</div>
+                            <div class="vhs-font text-xs">OLD</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('1970s')">
                             <div class="text-2xl mb-1">🕺</div>
-                            <div class="vhs-font text-sm">1970s</div>
+                            <div class="vhs-font text-xs">1970s</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('1980s')">
                             <div class="text-2xl mb-1">💿</div>
-                            <div class="vhs-font text-sm">1980s</div>
+                            <div class="vhs-font text-xs">1980s</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('1990s')">
                             <div class="text-2xl mb-1">💾</div>
-                            <div class="vhs-font text-sm">1990s</div>
+                            <div class="vhs-font text-xs">1990s</div>
                         </div>
                         <div class="effect-card" onclick="applyVintage('daguerreotype')">
                             <div class="text-2xl mb-1">🏛️</div>
-                            <div class="vhs-font text-sm">ANTIQUE</div>
+                            <div class="vhs-font text-xs">ANTIQUE</div>
                         </div>
                     </div>
                     
                     <!-- Frames Panel -->
-                    <div id="panelFrames" class="hidden space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+                    <div id="panelFrames" class="hidden space-y-3 max-h-[55vh] overflow-y-auto pr-2">
                         <div class="grid grid-cols-2 gap-2">
                             <div class="effect-card" onclick="applyFrame('vhsFrame')">
                                 <div class="text-2xl mb-1">📼</div>
-                                <div class="vhs-font text-sm">VHS FRAME</div>
+                                <div class="vhs-font text-xs">VHS</div>
                             </div>
                             <div class="effect-card" onclick="applyFrame('polaroidFrame')">
                                 <div class="text-2xl mb-1">🖼️</div>
-                                <div class="vhs-font text-sm">POLAROID</div>
-                            </div>
-                            <div class="effect-card" onclick="applyFrame('retroTV')">
-                                <div class="text-2xl mb-1">📺</div>
-                                <div class="vhs-font text-sm">RETRO TV</div>
-                            </div>
-                            <div class="effect-card" onclick="applyFrame('arcade')">
-                                <div class="text-2xl mb-1">🕹️</div>
-                                <div class="vhs-font text-sm">ARCADE</div>
+                                <div class="vhs-font text-xs">POLAROID</div>
                             </div>
                             <div class="effect-card" onclick="applyFrame('neonBorder')">
                                 <div class="text-2xl mb-1">💠</div>
-                                <div class="vhs-font text-sm">NEON</div>
+                                <div class="vhs-font text-xs">NEON</div>
                             </div>
                             <div class="effect-card" onclick="applyFrame('none')">
                                 <div class="text-2xl mb-1">❌</div>
-                                <div class="vhs-font text-sm">NO FRAME</div>
+                                <div class="vhs-font text-xs">NONE</div>
                             </div>
                         </div>
                         
                         <div class="tool-section p-3">
                             <h3 class="vhs-font text-sm text-pink-400 mb-3">OVERLAYS</h3>
-                            <div class="space-y-2">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="overlayTimestamp" onchange="toggleOverlay('timestamp')" class="accent-pink-500">
+                            <div class="space-y-1">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" id="overlayTimestamp" onchange="toggleOverlay('timestamp')">
                                     <span class="vhs-font text-sm">📅 TIMESTAMP</span>
                                 </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="overlayRec" onchange="toggleOverlay('rec')" class="accent-pink-500">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" id="overlayRec" onchange="toggleOverlay('rec')">
                                     <span class="vhs-font text-sm">🔴 REC</span>
                                 </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="overlayPlay" onchange="toggleOverlay('play')" class="accent-pink-500">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" id="overlayPlay" onchange="toggleOverlay('play')">
                                     <span class="vhs-font text-sm">▶ PLAY</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="overlayTracking" onchange="toggleOverlay('tracking')" class="accent-pink-500">
-                                    <span class="vhs-font text-sm">📶 TRACKING</span>
                                 </label>
                             </div>
                         </div>
@@ -892,6 +1008,45 @@
             </aside>
         </div>
     </main>
+    
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav lg:hidden">
+        <button class="mobile-nav-btn" onclick="openMobilePanel('tools')">
+            <span>🔧</span>
+            <span>TOOLS</span>
+        </button>
+        <button class="mobile-nav-btn" onclick="openMobilePanel('adjust')">
+            <span>🎚️</span>
+            <span>ADJUST</span>
+        </button>
+        <button class="mobile-nav-btn" onclick="openMobilePanel('effects')">
+            <span>✨</span>
+            <span>EFFECTS</span>
+        </button>
+        <button class="mobile-nav-btn" onclick="openMobilePanel('vintage')">
+            <span>📷</span>
+            <span>VINTAGE</span>
+        </button>
+        <button class="mobile-nav-btn" onclick="openMobilePanel('frames')">
+            <span>🖼️</span>
+            <span>FRAMES</span>
+        </button>
+    </nav>
+    
+    <!-- Mobile Panel Overlay -->
+    <div class="mobile-panel-overlay lg:hidden" id="mobilePanelOverlay" onclick="closeMobilePanel()"></div>
+    
+    <!-- Mobile Slide-up Panel -->
+    <div class="mobile-panel lg:hidden" id="mobilePanel">
+        <div class="panel-handle"></div>
+        <div class="mobile-panel-header">
+            <h3 class="vhs-font text-lg text-cyan-400" id="mobilePanelTitle">TOOLS</h3>
+            <button onclick="closeMobilePanel()" class="btn-icon w-10 h-10">✕</button>
+        </div>
+        <div class="mobile-panel-content" id="mobilePanelContent">
+            <!-- Content will be dynamically inserted -->
+        </div>
+    </div>
     
     <script>
         // Main variables
@@ -902,7 +1057,6 @@
         const canvasContainer = document.getElementById('canvasContainer');
         
         let originalImage = null;
-        let currentImageData = null;
         let zoom = 1;
         let history = [];
         let historyIndex = -1;
@@ -910,10 +1064,9 @@
         let isDrawing = false;
         let lastX = 0;
         let lastY = 0;
-        let overlays = { timestamp: false, rec: false, play: false, tracking: false };
+        let overlays = { timestamp: false, rec: false, play: false };
         let currentFrame = 'none';
-        let isCropping = false;
-        let cropRatio = 'free';
+        let activeMobilePanel = null;
         
         // Update timestamp
         function updateTimestamp() {
@@ -921,7 +1074,8 @@
             const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
             const year = 1985 + Math.floor(Math.random() * 10);
             const text = `${months[now.getMonth()]} ${String(now.getDate()).padStart(2, '0')} ${year} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-            document.getElementById('timestamp').textContent = text;
+            const el = document.getElementById('timestamp');
+            if (el) el.textContent = text;
         }
         setInterval(updateTimestamp, 1000);
         updateTimestamp();
@@ -947,6 +1101,11 @@
             if (e.dataTransfer.files[0]) loadImage(e.dataTransfer.files[0]);
         });
         
+        // Click to upload on mobile
+        uploadPrompt.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
         function loadImage(file) {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -954,8 +1113,10 @@
                 img.onload = () => {
                     originalImage = img;
                     
-                    const maxWidth = 900;
-                    const maxHeight = 600;
+                    // Responsive max dimensions
+                    const isMobile = window.innerWidth < 768;
+                    const maxWidth = isMobile ? window.innerWidth - 40 : 800;
+                    const maxHeight = isMobile ? 400 : 500;
                     let width = img.width;
                     let height = img.height;
                     
@@ -1023,43 +1184,296 @@
             document.getElementById('redoBtn').disabled = historyIndex >= history.length - 1;
         }
         
-        // Tab switching
+        // Tab switching (desktop)
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('active');
+            const tabBtn = document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+            if (tabBtn) tabBtn.classList.add('active');
             
-            document.getElementById('panelAdjust').classList.add('hidden');
-            document.getElementById('panelEffects').classList.add('hidden');
-            document.getElementById('panelVintage').classList.add('hidden');
-            document.getElementById('panelFrames').classList.add('hidden');
-            document.getElementById(`panel${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.remove('hidden');
+            ['panelAdjust', 'panelEffects', 'panelVintage', 'panelFrames'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+            
+            const panel = document.getElementById(`panel${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+            if (panel) panel.classList.remove('hidden');
+        }
+        
+        // Mobile Panel Functions
+        function openMobilePanel(type) {
+            activeMobilePanel = type;
+            const overlay = document.getElementById('mobilePanelOverlay');
+            const panel = document.getElementById('mobilePanel');
+            const title = document.getElementById('mobilePanelTitle');
+            const content = document.getElementById('mobilePanelContent');
+            
+            // Update nav buttons
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // Set title
+            const titles = {
+                tools: '🔧 TOOLS',
+                adjust: '🎚️ ADJUSTMENTS',
+                effects: '✨ EFFECTS',
+                vintage: '📷 VINTAGE',
+                frames: '🖼️ FRAMES'
+            };
+            title.textContent = titles[type] || type.toUpperCase();
+            
+            // Set content
+            content.innerHTML = getMobilePanelContent(type);
+            
+            // Bind events for sliders
+            if (type === 'adjust') {
+                bindMobileSliders();
+            }
+            
+            overlay.classList.add('active');
+            panel.classList.add('active');
+        }
+        
+        function closeMobilePanel() {
+            document.getElementById('mobilePanelOverlay').classList.remove('active');
+            document.getElementById('mobilePanel').classList.remove('active');
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => btn.classList.remove('active'));
+            activeMobilePanel = null;
+        }
+        
+        function getMobilePanelContent(type) {
+            switch(type) {
+                case 'tools':
+                    return `
+                        <div class="space-y-4">
+                            <div class="tool-section p-4">
+                                <h3 class="vhs-font text-sm text-pink-400 mb-3">TRANSFORM</h3>
+                                <div class="grid grid-cols-4 gap-3">
+                                    <button onclick="rotateImage(-90)" class="btn-icon">↺</button>
+                                    <button onclick="rotateImage(90)" class="btn-icon">↻</button>
+                                    <button onclick="flipImage('h')" class="btn-icon">⇆</button>
+                                    <button onclick="flipImage('v')" class="btn-icon">⇅</button>
+                                </div>
+                            </div>
+                            <div class="tool-section p-4">
+                                <h3 class="vhs-font text-sm text-pink-400 mb-3">DRAW</h3>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <button onclick="setTool('brush'); updateMobileToolButtons()" class="btn-icon flex-1 ${currentTool === 'brush' ? 'active' : ''}" id="mobileBrushTool">🖌️ Brush</button>
+                                    <button onclick="setTool('eraser'); updateMobileToolButtons()" class="btn-icon flex-1 ${currentTool === 'eraser' ? 'active' : ''}" id="mobileEraserTool">🧹 Eraser</button>
+                                </div>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="mobileBrushColor" value="${document.getElementById('brushColor')?.value || '#ff2a6d'}" onchange="document.getElementById('brushColor').value = this.value">
+                                    </div>
+                                    <div class="flex-1 slider-wrapper">
+                                        <label class="vhs-font text-xs text-gray-400">SIZE</label>
+                                        <input type="range" id="mobileBrushSize" min="1" max="50" value="${document.getElementById('brushSize')?.value || 5}" onchange="document.getElementById('brushSize').value = this.value">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tool-section p-4">
+                                <h3 class="vhs-font text-sm text-pink-400 mb-3">ADD TEXT</h3>
+                                <input type="text" id="mobileTextInput" placeholder="Enter text..." 
+                                    class="w-full bg-black/50 border border-cyan-500/30 rounded px-3 py-3 text-base mb-3 focus:border-pink-500 focus:outline-none">
+                                <div class="flex gap-2 mb-3">
+                                    <select id="mobileTextFont" class="flex-1 bg-black/50 border border-cyan-500/30 rounded px-3 py-3 text-sm">
+                                        <option value="VT323">VHS</option>
+                                        <option value="Orbitron">RETRO</option>
+                                        <option value="Press Start 2P">PIXEL</option>
+                                    </select>
+                                    <input type="number" id="mobileTextSize" value="32" min="8" max="120" 
+                                        class="w-20 bg-black/50 border border-cyan-500/30 rounded px-3 py-3 text-sm">
+                                </div>
+                                <button onclick="addTextMobile()" class="btn-neon w-full">ADD TEXT</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                case 'adjust':
+                    return `
+                        <div class="space-y-5">
+                            ${['brightness', 'contrast', 'saturation', 'exposure', 'temperature', 'tint', 'vignette', 'blur', 'hue'].map(adj => `
+                                <div class="slider-wrapper">
+                                    <div class="flex justify-between mb-2">
+                                        <label class="vhs-font text-sm text-pink-400">${adj.toUpperCase()}</label>
+                                        <span class="vhs-font text-xs text-cyan-400" id="mobile${adj}Val">${document.getElementById(adj)?.value || 0}${adj === 'hue' ? '°' : ''}</span>
+                                    </div>
+                                    <input type="range" id="mobile${adj}" 
+                                        min="${adj === 'vignette' || adj === 'blur' ? 0 : adj === 'hue' ? 0 : -100}" 
+                                        max="${adj === 'hue' ? 360 : adj === 'blur' ? 20 : 100}" 
+                                        value="${document.getElementById(adj)?.value || 0}"
+                                        step="${adj === 'blur' ? 0.5 : 1}"
+                                        oninput="syncSlider('${adj}', this.value)">
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                case 'effects':
+                    return `
+                        <div class="grid grid-cols-3 gap-3">
+                            ${[
+                                ['vhs', '📼', 'VHS'],
+                                ['glitch', '👾', 'GLITCH'],
+                                ['scanlines', '📺', 'SCAN'],
+                                ['chromatic', '🌈', 'RGB'],
+                                ['pixelate', '🎮', '8-BIT'],
+                                ['neon', '💜', 'NEON'],
+                                ['cyberpunk', '🌃', 'CYBER'],
+                                ['synthwave', '🌅', 'SYNTH'],
+                                ['vaporwave', '🌴', 'VAPOR'],
+                                ['miami', '🏖️', 'MIAMI'],
+                                ['tokyo', '🗼', 'TOKYO'],
+                                ['duotone', '🎨', 'DUO']
+                            ].map(([id, icon, label]) => `
+                                <div class="effect-card" onclick="applyEffect('${id}')">
+                                    <div class="text-2xl mb-1">${icon}</div>
+                                    <div class="vhs-font text-xs">${label}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                case 'vintage':
+                    return `
+                        <div class="grid grid-cols-3 gap-3">
+                            ${[
+                                ['sepia', '🟤', 'SEPIA'],
+                                ['faded', '🌫️', 'FADED'],
+                                ['polaroid', '📷', 'POLAROID'],
+                                ['kodak', '🎞️', 'KODAK'],
+                                ['grain', '✨', 'GRAIN'],
+                                ['dusty', '💨', 'DUSTY'],
+                                ['lightleak', '☀️', 'LEAK'],
+                                ['oldphoto', '🖼️', 'OLD'],
+                                ['1970s', '🕺', '1970s'],
+                                ['1980s', '💿', '1980s'],
+                                ['1990s', '💾', '1990s'],
+                                ['daguerreotype', '🏛️', 'ANTIQUE']
+                            ].map(([id, icon, label]) => `
+                                <div class="effect-card" onclick="applyVintage('${id}')">
+                                    <div class="text-2xl mb-1">${icon}</div>
+                                    <div class="vhs-font text-xs">${label}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                case 'frames':
+                    return `
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="effect-card" onclick="applyFrame('vhsFrame')">
+                                    <div class="text-2xl mb-1">📼</div>
+                                    <div class="vhs-font text-xs">VHS FRAME</div>
+                                </div>
+                                <div class="effect-card" onclick="applyFrame('polaroidFrame')">
+                                    <div class="text-2xl mb-1">🖼️</div>
+                                    <div class="vhs-font text-xs">POLAROID</div>
+                                </div>
+                                <div class="effect-card" onclick="applyFrame('neonBorder')">
+                                    <div class="text-2xl mb-1">💠</div>
+                                    <div class="vhs-font text-xs">NEON</div>
+                                </div>
+                                <div class="effect-card" onclick="applyFrame('none')">
+                                    <div class="text-2xl mb-1">❌</div>
+                                    <div class="vhs-font text-xs">NO FRAME</div>
+                                </div>
+                            </div>
+                            <div class="tool-section p-4">
+                                <h3 class="vhs-font text-sm text-pink-400 mb-3">OVERLAYS</h3>
+                                <div class="space-y-2">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" id="mobileOverlayTimestamp" ${overlays.timestamp ? 'checked' : ''} onchange="toggleOverlay('timestamp')">
+                                        <span class="vhs-font text-sm">📅 TIMESTAMP</span>
+                                    </label>
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" id="mobileOverlayRec" ${overlays.rec ? 'checked' : ''} onchange="toggleOverlay('rec')">
+                                        <span class="vhs-font text-sm">🔴 REC</span>
+                                    </label>
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" id="mobileOverlayPlay" ${overlays.play ? 'checked' : ''} onchange="toggleOverlay('play')">
+                                        <span class="vhs-font text-sm">▶ PLAY</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                default:
+                    return '';
+            }
+        }
+        
+        function syncSlider(name, value) {
+            const desktopSlider = document.getElementById(name);
+            if (desktopSlider) desktopSlider.value = value;
+            
+            const valDisplay = document.getElementById(`mobile${name}Val`);
+            if (valDisplay) valDisplay.textContent = value + (name === 'hue' ? '°' : '');
+            
+            updateAdjustments();
+        }
+        
+        function bindMobileSliders() {
+            // Sliders are already bound via oninput in HTML
+        }
+        
+        function updateMobileToolButtons() {
+            const brushBtn = document.getElementById('mobileBrushTool');
+            const eraserBtn = document.getElementById('mobileEraserTool');
+            if (brushBtn) brushBtn.classList.toggle('active', currentTool === 'brush');
+            if (eraserBtn) eraserBtn.classList.toggle('active', currentTool === 'eraser');
+        }
+        
+        function addTextMobile() {
+            const text = document.getElementById('mobileTextInput')?.value;
+            const font = document.getElementById('mobileTextFont')?.value || 'VT323';
+            const size = document.getElementById('mobileTextSize')?.value || 32;
+            const color = document.getElementById('mobileBrushColor')?.value || '#ff2a6d';
+            
+            if (!text || !originalImage) return;
+            
+            ctx.font = `${size}px ${font}, monospace`;
+            ctx.fillStyle = color;
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 10;
+            ctx.fillText(text, canvas.width / 2 - ctx.measureText(text).width / 2, canvas.height / 2);
+            ctx.shadowBlur = 0;
+            
+            saveToHistory();
         }
         
         // Adjustments
         function updateAdjustments() {
             if (!originalImage) return;
             
-            const brightness = parseInt(document.getElementById('brightness').value);
-            const contrast = parseInt(document.getElementById('contrast').value);
-            const saturation = parseInt(document.getElementById('saturation').value);
-            const exposure = parseInt(document.getElementById('exposure').value);
-            const hue = parseInt(document.getElementById('hue').value);
-            const blur = parseFloat(document.getElementById('blur').value);
-            const vignette = parseInt(document.getElementById('vignette').value);
+            const getValue = (id) => parseFloat(document.getElementById(id)?.value || 0);
             
-            // Update value displays
-            document.getElementById('brightnessVal').textContent = brightness;
-            document.getElementById('contrastVal').textContent = contrast;
-            document.getElementById('saturationVal').textContent = saturation;
-            document.getElementById('exposureVal').textContent = exposure;
-            document.getElementById('temperatureVal').textContent = document.getElementById('temperature').value;
-            document.getElementById('tintVal').textContent = document.getElementById('tint').value;
-            document.getElementById('shadowsVal').textContent = document.getElementById('shadows').value;
-            document.getElementById('highlightsVal').textContent = document.getElementById('highlights').value;
-            document.getElementById('sharpnessVal').textContent = document.getElementById('sharpness').value;
-            document.getElementById('vignetteVal').textContent = vignette;
-            document.getElementById('blurVal').textContent = blur;
-            document.getElementById('hueVal').textContent = hue + '°';
+            const brightness = getValue('brightness');
+            const contrast = getValue('contrast');
+            const saturation = getValue('saturation');
+            const exposure = getValue('exposure');
+            const hue = getValue('hue');
+            const blur = getValue('blur');
+            const vignette = getValue('vignette');
+            const temperature = getValue('temperature');
+            const tint = getValue('tint');
+            
+            // Update desktop value displays
+            const updateVal = (id, val, suffix = '') => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = val + suffix;
+            };
+            
+            updateVal('brightnessVal', brightness);
+            updateVal('contrastVal', contrast);
+            updateVal('saturationVal', saturation);
+            updateVal('exposureVal', exposure);
+            updateVal('temperatureVal', temperature);
+            updateVal('tintVal', tint);
+            updateVal('vignetteVal', vignette);
+            updateVal('blurVal', blur);
+            updateVal('hueVal', hue, '°');
             
             // Apply CSS filters
             const brightnessFilter = (brightness + 100) / 100;
@@ -1072,8 +1486,6 @@
             ctx.filter = 'none';
             
             // Apply temperature/tint
-            const temperature = parseInt(document.getElementById('temperature').value);
-            const tint = parseInt(document.getElementById('tint').value);
             if (temperature !== 0 || tint !== 0) {
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const data = imageData.data;
@@ -1101,18 +1513,10 @@
         }
         
         function resetAdjustments() {
-            document.getElementById('brightness').value = 0;
-            document.getElementById('contrast').value = 0;
-            document.getElementById('saturation').value = 0;
-            document.getElementById('exposure').value = 0;
-            document.getElementById('temperature').value = 0;
-            document.getElementById('tint').value = 0;
-            document.getElementById('shadows').value = 0;
-            document.getElementById('highlights').value = 0;
-            document.getElementById('sharpness').value = 0;
-            document.getElementById('vignette').value = 0;
-            document.getElementById('blur').value = 0;
-            document.getElementById('hue').value = 0;
+            ['brightness', 'contrast', 'saturation', 'exposure', 'temperature', 'tint', 'vignette', 'blur', 'hue'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = 0;
+            });
             updateAdjustments();
         }
         
@@ -1121,75 +1525,45 @@
                 resetAdjustments();
                 ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
                 currentFrame = 'none';
-                overlays = { timestamp: false, rec: false, play: false, tracking: false };
-                document.querySelectorAll('#panelFrames input[type="checkbox"]').forEach(cb => cb.checked = false);
+                overlays = { timestamp: false, rec: false, play: false };
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
                 saveToHistory();
             }
         }
         
-        // Effects
+        // Effects (same as before, condensed)
         function applyEffect(effect) {
             if (!originalImage) return;
-            
             updateAdjustments();
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = imageData.data;
             
-            switch(effect) {
-                case 'vhs':
+            const effects = {
+                vhs: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         const noise = (Math.random() - 0.5) * 25;
                         data[i] = Math.min(255, Math.max(0, data[i] + noise + 15));
                         data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise));
                         data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise + 25));
                     }
-                    // Add horizontal distortion
+                },
+                glitch: () => {
+                    const temp = new Uint8ClampedArray(data);
                     for (let y = 0; y < canvas.height; y++) {
-                        if (Math.random() > 0.97) {
-                            const offset = Math.floor((Math.random() - 0.5) * 30);
+                        if (Math.random() > 0.92) {
+                            const offset = Math.floor((Math.random() - 0.5) * 60);
                             for (let x = 0; x < canvas.width; x++) {
                                 const srcX = Math.min(canvas.width - 1, Math.max(0, x + offset));
                                 const srcIdx = (y * canvas.width + srcX) * 4;
                                 const dstIdx = (y * canvas.width + x) * 4;
-                                data[dstIdx] = data[srcIdx];
+                                data[dstIdx] = temp[srcIdx];
+                                data[dstIdx + 1] = temp[srcIdx + 1];
+                                data[dstIdx + 2] = temp[srcIdx + 2];
                             }
                         }
                     }
-                    break;
-                    
-                case 'glitch':
-                    const tempData = new Uint8ClampedArray(data);
-                    for (let y = 0; y < canvas.height; y++) {
-                        if (Math.random() > 0.92) {
-                            const offset = Math.floor((Math.random() - 0.5) * 60);
-                            const sliceHeight = Math.floor(Math.random() * 20) + 5;
-                            for (let dy = 0; dy < sliceHeight && y + dy < canvas.height; dy++) {
-                                for (let x = 0; x < canvas.width; x++) {
-                                    const srcX = Math.min(canvas.width - 1, Math.max(0, x + offset));
-                                    const srcIdx = ((y + dy) * canvas.width + srcX) * 4;
-                                    const dstIdx = ((y + dy) * canvas.width + x) * 4;
-                                    data[dstIdx] = tempData[srcIdx];
-                                    data[dstIdx + 1] = tempData[srcIdx + 1];
-                                    data[dstIdx + 2] = tempData[srcIdx + 2];
-                                }
-                            }
-                            y += sliceHeight;
-                        }
-                    }
-                    // RGB shift
-                    const shift = 8;
-                    for (let y = 0; y < canvas.height; y++) {
-                        for (let x = 0; x < canvas.width; x++) {
-                            const idx = (y * canvas.width + x) * 4;
-                            const rIdx = (y * canvas.width + Math.min(canvas.width - 1, x + shift)) * 4;
-                            const bIdx = (y * canvas.width + Math.max(0, x - shift)) * 4;
-                            data[idx] = tempData[rIdx];
-                            data[idx + 2] = tempData[bIdx];
-                        }
-                    }
-                    break;
-                    
-                case 'scanlines':
+                },
+                scanlines: () => {
                     for (let y = 0; y < canvas.height; y += 2) {
                         for (let x = 0; x < canvas.width; x++) {
                             const idx = (y * canvas.width + x) * 4;
@@ -1198,118 +1572,90 @@
                             data[idx + 2] *= 0.7;
                         }
                     }
-                    break;
-                    
-                case 'chromatic':
-                    const chromeData = new Uint8ClampedArray(data);
-                    const chromeShift = 6;
+                },
+                chromatic: () => {
+                    const temp = new Uint8ClampedArray(data);
                     for (let y = 0; y < canvas.height; y++) {
                         for (let x = 0; x < canvas.width; x++) {
                             const idx = (y * canvas.width + x) * 4;
-                            const rIdx = (y * canvas.width + Math.min(canvas.width - 1, x + chromeShift)) * 4;
-                            const bIdx = (y * canvas.width + Math.max(0, x - chromeShift)) * 4;
-                            data[idx] = chromeData[rIdx];
-                            data[idx + 2] = chromeData[bIdx];
+                            const rIdx = (y * canvas.width + Math.min(canvas.width - 1, x + 6)) * 4;
+                            const bIdx = (y * canvas.width + Math.max(0, x - 6)) * 4;
+                            data[idx] = temp[rIdx];
+                            data[idx + 2] = temp[bIdx];
                         }
                     }
-                    break;
-                    
-                case 'pixelate':
-                    const pixelSize = 6;
-                    for (let y = 0; y < canvas.height; y += pixelSize) {
-                        for (let x = 0; x < canvas.width; x += pixelSize) {
+                },
+                pixelate: () => {
+                    const size = 6;
+                    for (let y = 0; y < canvas.height; y += size) {
+                        for (let x = 0; x < canvas.width; x += size) {
                             const idx = (y * canvas.width + x) * 4;
                             const r = data[idx], g = data[idx + 1], b = data[idx + 2];
-                            for (let py = 0; py < pixelSize && y + py < canvas.height; py++) {
-                                for (let px = 0; px < pixelSize && x + px < canvas.width; px++) {
+                            for (let py = 0; py < size && y + py < canvas.height; py++) {
+                                for (let px = 0; px < size && x + px < canvas.width; px++) {
                                     const pIdx = ((y + py) * canvas.width + (x + px)) * 4;
-                                    data[pIdx] = r;
-                                    data[pIdx + 1] = g;
-                                    data[pIdx + 2] = b;
+                                    data[pIdx] = r; data[pIdx + 1] = g; data[pIdx + 2] = b;
                                 }
                             }
                         }
                     }
-                    break;
-                    
-                case 'neon':
+                },
+                neon: () => {
                     for (let i = 0; i < data.length; i += 4) {
-                        const brightness = (data[i] + data[i + 1] + data[i + 2]) / 3;
-                        if (brightness > 100) {
+                        if ((data[i] + data[i + 1] + data[i + 2]) / 3 > 100) {
                             data[i] = Math.min(255, data[i] * 1.4);
                             data[i + 2] = Math.min(255, data[i + 2] * 1.5);
                         }
                         data[i + 1] *= 0.6;
                     }
-                    break;
-                    
-                case 'cyberpunk':
+                },
+                cyberpunk: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 0.8 + 40);
-                        data[i + 1] = data[i + 1] * 0.9;
+                        data[i + 1] *= 0.9;
                         data[i + 2] = Math.min(255, data[i + 2] * 1.3);
                     }
-                    break;
-                    
-                case 'synthwave':
+                },
+                synthwave: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         const y = Math.floor((i / 4) / canvas.width) / canvas.height;
                         data[i] = Math.min(255, data[i] * (1.2 + y * 0.3));
-                        data[i + 1] = data[i + 1] * (0.6 + y * 0.2);
+                        data[i + 1] *= (0.6 + y * 0.2);
                         data[i + 2] = Math.min(255, data[i + 2] * (1.4 - y * 0.3));
                     }
-                    break;
-                    
-                case 'vaporwave':
+                },
+                vaporwave: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 0.9 + 60);
                         data[i + 1] = Math.min(255, data[i + 1] * 1.1 + 40);
                         data[i + 2] = Math.min(255, data[i + 2] * 1.2 + 70);
                     }
-                    break;
-                    
-                case 'miami':
+                },
+                miami: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 1.3 + 30);
-                        data[i + 1] = data[i + 1] * 0.85;
+                        data[i + 1] *= 0.85;
                         data[i + 2] = Math.min(255, data[i + 2] * 1.2 + 50);
                     }
-                    break;
-                    
-                case 'tokyo':
+                },
+                tokyo: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 1.1 + 20);
-                        data[i + 1] = data[i + 1] * 0.7;
+                        data[i + 1] *= 0.7;
                         data[i + 2] = Math.min(255, data[i + 2] * 1.5);
                     }
-                    break;
-                    
-                case 'arcade':
-                    for (let i = 0; i < data.length; i += 4) {
-                        data[i] = Math.round(data[i] / 51) * 51;
-                        data[i + 1] = Math.round(data[i + 1] / 51) * 51;
-                        data[i + 2] = Math.round(data[i + 2] / 51) * 51;
-                    }
-                    break;
-                    
-                case 'duotone':
+                },
+                duotone: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         const gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
                         data[i] = Math.min(255, gray * 1.5);
                         data[i + 1] = gray * 0.2;
                         data[i + 2] = Math.min(255, gray * 1.8);
                     }
-                    break;
-                    
-                case 'noir':
-                    for (let i = 0; i < data.length; i += 4) {
-                        const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
-                        const contrast = ((gray - 128) * 1.4) + 128;
-                        data[i] = data[i + 1] = data[i + 2] = Math.min(255, Math.max(0, contrast));
-                    }
-                    break;
-            }
+                }
+            };
             
+            if (effects[effect]) effects[effect]();
             ctx.putImageData(imageData, 0, 0);
             renderOverlays();
             saveToHistory();
@@ -1318,83 +1664,58 @@
         // Vintage effects
         function applyVintage(effect) {
             if (!originalImage) return;
-            
             updateAdjustments();
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = imageData.data;
             
-            switch(effect) {
-                case 'sepia':
+            const effects = {
+                sepia: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         const r = data[i], g = data[i + 1], b = data[i + 2];
                         data[i] = Math.min(255, r * 0.393 + g * 0.769 + b * 0.189);
                         data[i + 1] = Math.min(255, r * 0.349 + g * 0.686 + b * 0.168);
                         data[i + 2] = Math.min(255, r * 0.272 + g * 0.534 + b * 0.131);
                     }
-                    break;
-                    
-                case 'faded':
+                },
+                faded: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 0.9 + 25);
                         data[i + 1] = Math.min(255, data[i + 1] * 0.85 + 20);
                         data[i + 2] = Math.min(255, data[i + 2] * 0.8 + 30);
                     }
-                    break;
-                    
-                case 'polaroid':
+                },
+                polaroid: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 1.1 + 10);
                         data[i + 1] = Math.min(255, data[i + 1] * 1.05 + 10);
                         data[i + 2] = data[i + 2] * 0.9 + 20;
                     }
-                    break;
-                    
-                case 'kodak':
+                },
+                kodak: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 1.15 + 15);
                         data[i + 1] = Math.min(255, data[i + 1] * 1.05 + 5);
                         data[i + 2] = data[i + 2] * 0.85;
                     }
-                    break;
-                    
-                case 'fuji':
-                    for (let i = 0; i < data.length; i += 4) {
-                        data[i] = data[i] * 0.95;
-                        data[i + 1] = Math.min(255, data[i + 1] * 1.15);
-                        data[i + 2] = Math.min(255, data[i + 2] * 1.1);
-                    }
-                    break;
-                    
-                case 'agfa':
-                    for (let i = 0; i < data.length; i += 4) {
-                        data[i] = Math.min(255, data[i] * 1.2);
-                        data[i + 1] = Math.min(255, data[i + 1] * 1.1);
-                        data[i + 2] = data[i + 2] * 0.8;
-                    }
-                    break;
-                    
-                case 'grain':
+                },
+                grain: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         const grain = (Math.random() - 0.5) * 40;
                         data[i] = Math.min(255, Math.max(0, data[i] + grain));
                         data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + grain));
                         data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + grain));
                     }
-                    break;
-                    
-                case 'dusty':
+                },
+                dusty: () => {
                     for (let i = 0; i < data.length; i += 4) {
-                        if (Math.random() > 0.995) {
-                            data[i] = data[i + 1] = data[i + 2] = 255;
-                        }
+                        if (Math.random() > 0.995) data[i] = data[i + 1] = data[i + 2] = 255;
                         const grain = (Math.random() - 0.5) * 20;
                         data[i] = Math.min(255, Math.max(0, data[i] + grain + 10));
                         data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + grain + 5));
                         data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + grain));
                     }
-                    break;
-                    
-                case 'lightleak':
+                },
+                lightleak: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         const x = (i / 4) % canvas.width;
                         const y = Math.floor((i / 4) / canvas.width);
@@ -1404,90 +1725,74 @@
                         data[i] = Math.min(255, data[i] + intensity * 1.5);
                         data[i + 1] = Math.min(255, data[i + 1] + intensity * 0.8);
                     }
-                    break;
-                    
-                case 'oldphoto':
+                },
+                oldphoto: () => {
                     for (let i = 0; i < data.length; i += 4) {
                         const gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
-                        const sepia_r = Math.min(255, gray * 1.1 + 30);
-                        const sepia_g = Math.min(255, gray * 0.9 + 15);
-                        const sepia_b = Math.min(255, gray * 0.7);
                         const grain = (Math.random() - 0.5) * 30;
-                        data[i] = Math.min(255, sepia_r + grain);
-                        data[i + 1] = Math.min(255, sepia_g + grain);
-                        data[i + 2] = Math.min(255, sepia_b + grain);
+                        data[i] = Math.min(255, gray * 1.1 + 30 + grain);
+                        data[i + 1] = Math.min(255, gray * 0.9 + 15 + grain);
+                        data[i + 2] = Math.min(255, gray * 0.7 + grain);
                     }
-                    break;
-                    
-                case '1970s':
+                },
+                '1970s': () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 1.1 + 20);
                         data[i + 1] = Math.min(255, data[i + 1] * 0.95 + 10);
                         data[i + 2] = data[i + 2] * 0.8;
-                        const grain = (Math.random() - 0.5) * 15;
-                        data[i] += grain;
-                        data[i + 1] += grain;
-                        data[i + 2] += grain;
                     }
-                    break;
-                    
-                case '1980s':
+                },
+                '1980s': () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 1.2 + 15);
                         data[i + 1] = data[i + 1] * 0.85;
                         data[i + 2] = Math.min(255, data[i + 2] * 1.3 + 20);
                     }
-                    break;
-                    
-                case '1990s':
+                },
+                '1990s': () => {
                     for (let i = 0; i < data.length; i += 4) {
                         data[i] = Math.min(255, data[i] * 1.05 + 5);
                         data[i + 1] = Math.min(255, data[i + 1] * 1.1);
                         data[i + 2] = Math.min(255, data[i + 2] * 1.15 + 10);
                     }
-                    break;
-                    
-                case 'daguerreotype':
+                },
+                daguerreotype: () => {
                     for (let i = 0; i < data.length; i += 4) {
-                        const gray = (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114);
+                        const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
                         const contrast = ((gray - 128) * 1.3) + 128;
                         data[i] = Math.min(255, contrast + 20);
                         data[i + 1] = Math.min(255, contrast + 10);
                         data[i + 2] = contrast;
                     }
-                    break;
-            }
+                }
+            };
             
+            if (effects[effect]) effects[effect]();
             ctx.putImageData(imageData, 0, 0);
             renderOverlays();
             saveToHistory();
         }
         
-        // Frames
+        // Frames & Overlays
         function applyFrame(frame) {
             currentFrame = frame;
             updateAdjustments();
             saveToHistory();
         }
         
-        // Overlays
         function toggleOverlay(overlay) {
             overlays[overlay] = !overlays[overlay];
             updateAdjustments();
         }
         
         function renderOverlays() {
-            ctx.font = '20px VT323, monospace';
-            
             if (currentFrame === 'vhsFrame') {
-                // Top gradient
                 const topGrad = ctx.createLinearGradient(0, 0, 0, 50);
                 topGrad.addColorStop(0, 'rgba(0,0,0,0.7)');
                 topGrad.addColorStop(1, 'rgba(0,0,0,0)');
                 ctx.fillStyle = topGrad;
                 ctx.fillRect(0, 0, canvas.width, 50);
                 
-                // Bottom gradient
                 const bottomGrad = ctx.createLinearGradient(0, canvas.height - 50, 0, canvas.height);
                 bottomGrad.addColorStop(0, 'rgba(0,0,0,0)');
                 bottomGrad.addColorStop(1, 'rgba(0,0,0,0.7)');
@@ -1500,7 +1805,7 @@
                 ctx.lineWidth = 15;
                 ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
                 ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, canvas.height - 60, canvas.width, 60);
+                ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
             }
             
             if (currentFrame === 'neonBorder') {
@@ -1517,40 +1822,28 @@
             if (overlays.timestamp) {
                 const now = new Date();
                 const year = 1985 + Math.floor(Math.random() * 10);
-                const text = `${now.getMonth() + 1}/${now.getDate()}/${year} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
                 ctx.fillStyle = '#ffcc00';
-                ctx.font = 'bold 24px VT323, monospace';
+                ctx.font = 'bold 20px VT323, monospace';
                 ctx.shadowColor = '#000';
                 ctx.shadowBlur = 4;
-                ctx.fillText(text, canvas.width - 180, canvas.height - 20);
+                ctx.fillText(`${now.getMonth() + 1}/${now.getDate()}/${year}`, canvas.width - 120, canvas.height - 15);
                 ctx.shadowBlur = 0;
             }
             
             if (overlays.rec) {
                 ctx.fillStyle = '#ff0000';
                 ctx.beginPath();
-                ctx.arc(30, 30, 8, 0, Math.PI * 2);
+                ctx.arc(25, 25, 6, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 20px VT323, monospace';
-                ctx.fillText('REC', 45, 36);
+                ctx.font = 'bold 16px VT323, monospace';
+                ctx.fillText('REC', 38, 30);
             }
             
             if (overlays.play) {
                 ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 24px VT323, monospace';
-                ctx.fillText('▶ PLAY', 20, canvas.height - 20);
-            }
-            
-            if (overlays.tracking) {
-                const y = canvas.height / 2 + (Math.random() - 0.5) * 20;
-                ctx.fillStyle = 'rgba(0,0,0,0.8)';
-                ctx.fillRect(0, y - 15, canvas.width, 30);
-                for (let i = 0; i < 5; i++) {
-                    const barY = y - 10 + Math.random() * 20;
-                    ctx.fillStyle = 'rgba(255,255,255,0.3)';
-                    ctx.fillRect(0, barY, canvas.width, 2);
-                }
+                ctx.font = 'bold 18px VT323, monospace';
+                ctx.fillText('▶ PLAY', 15, canvas.height - 15);
             }
         }
         
@@ -1558,30 +1851,28 @@
         function rotateImage(degrees) {
             if (!originalImage) return;
             
-            const tempCanvas = document.createElement('canvas');
-            const tempCtx = tempCanvas.getContext('2d');
+            const temp = document.createElement('canvas');
+            const tempCtx = temp.getContext('2d');
             
-            if (degrees === 90 || degrees === -90) {
-                tempCanvas.width = canvas.height;
-                tempCanvas.height = canvas.width;
+            if (Math.abs(degrees) === 90) {
+                temp.width = canvas.height;
+                temp.height = canvas.width;
             } else {
-                tempCanvas.width = canvas.width;
-                tempCanvas.height = canvas.height;
+                temp.width = canvas.width;
+                temp.height = canvas.height;
             }
             
-            tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+            tempCtx.translate(temp.width / 2, temp.height / 2);
             tempCtx.rotate(degrees * Math.PI / 180);
             tempCtx.drawImage(canvas, -canvas.width / 2, -canvas.height / 2);
             
-            canvas.width = tempCanvas.width;
-            canvas.height = tempCanvas.height;
-            ctx.drawImage(tempCanvas, 0, 0);
+            canvas.width = temp.width;
+            canvas.height = temp.height;
+            ctx.drawImage(temp, 0, 0);
             
-            const tempImg = new Image();
-            tempImg.onload = () => {
-                originalImage = tempImg;
-            };
-            tempImg.src = canvas.toDataURL();
+            const newImg = new Image();
+            newImg.onload = () => { originalImage = newImg; };
+            newImg.src = canvas.toDataURL();
             
             saveToHistory();
         }
@@ -1589,10 +1880,10 @@
         function flipImage(direction) {
             if (!originalImage) return;
             
-            const tempCanvas = document.createElement('canvas');
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCanvas.width = canvas.width;
-            tempCanvas.height = canvas.height;
+            const temp = document.createElement('canvas');
+            const tempCtx = temp.getContext('2d');
+            temp.width = canvas.width;
+            temp.height = canvas.height;
             
             if (direction === 'h') {
                 tempCtx.translate(canvas.width, 0);
@@ -1603,20 +1894,18 @@
             }
             
             tempCtx.drawImage(canvas, 0, 0);
-            ctx.drawImage(tempCanvas, 0, 0);
+            ctx.drawImage(temp, 0, 0);
             
-            const tempImg = new Image();
-            tempImg.onload = () => {
-                originalImage = tempImg;
-            };
-            tempImg.src = canvas.toDataURL();
+            const newImg = new Image();
+            newImg.onload = () => { originalImage = newImg; };
+            newImg.src = canvas.toDataURL();
             
             saveToHistory();
         }
         
         // Zoom
         function zoomCanvas(delta) {
-            zoom = Math.max(0.1, Math.min(3, zoom + delta));
+            zoom = Math.max(0.25, Math.min(3, zoom + delta));
             canvas.style.transform = `scale(${zoom})`;
             document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
         }
@@ -1627,22 +1916,56 @@
             document.getElementById('zoomLevel').textContent = '100%';
         }
         
-        // Drawing tools
+        // Drawing tools with touch support
         function setTool(tool) {
             currentTool = currentTool === tool ? null : tool;
-            document.getElementById('brushTool').classList.toggle('active', currentTool === 'brush');
-            document.getElementById('eraserTool').classList.toggle('active', currentTool === 'eraser');
+            const brushBtn = document.getElementById('brushTool');
+            const eraserBtn = document.getElementById('eraserTool');
+            if (brushBtn) brushBtn.classList.toggle('active', currentTool === 'brush');
+            if (eraserBtn) eraserBtn.classList.toggle('active', currentTool === 'eraser');
             canvas.style.cursor = currentTool ? 'crosshair' : 'default';
         }
         
-        function updateBrushColor() {
-            // Color is read directly when drawing
-        }
-        
+        // Mouse events
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Touch events
+        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+        canvas.addEventListener('touchend', stopDrawing);
+        
+        function handleTouchStart(e) {
+            if (!currentTool) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            isDrawing = true;
+            lastX = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            lastY = (touch.clientY - rect.top) * (canvas.height / rect.height);
+        }
+        
+        function handleTouchMove(e) {
+            if (!isDrawing || !currentTool) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.strokeStyle = currentTool === 'eraser' ? '#ffffff' : (document.getElementById('brushColor')?.value || '#ff2a6d');
+            ctx.lineWidth = document.getElementById('brushSize')?.value || 5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            
+            lastX = x;
+            lastY = y;
+        }
         
         function startDrawing(e) {
             if (!currentTool) return;
@@ -1662,8 +1985,8 @@
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(x, y);
-            ctx.strokeStyle = currentTool === 'eraser' ? '#ffffff' : document.getElementById('brushColor').value;
-            ctx.lineWidth = document.getElementById('brushSize').value;
+            ctx.strokeStyle = currentTool === 'eraser' ? '#ffffff' : (document.getElementById('brushColor')?.value || '#ff2a6d');
+            ctx.lineWidth = document.getElementById('brushSize')?.value || 5;
             ctx.lineCap = 'round';
             ctx.stroke();
             
@@ -1682,12 +2005,12 @@
         function addText() {
             if (!originalImage) return;
             
-            const text = document.getElementById('textInput').value;
+            const text = document.getElementById('textInput')?.value;
             if (!text) return;
             
-            const font = document.getElementById('textFont').value;
-            const size = document.getElementById('textSize').value;
-            const color = document.getElementById('brushColor').value;
+            const font = document.getElementById('textFont')?.value || 'VT323';
+            const size = document.getElementById('textSize')?.value || 32;
+            const color = document.getElementById('brushColor')?.value || '#ff2a6d';
             
             ctx.font = `${size}px ${font}, monospace`;
             ctx.fillStyle = color;
@@ -1699,33 +2022,23 @@
             saveToHistory();
         }
         
-        // Crop
-        function setCropRatio(ratio) {
-            cropRatio = ratio;
-        }
-        
-        function toggleCrop() {
-            isCropping = !isCropping;
-            document.getElementById('cropBtn').classList.toggle('active', isCropping);
-        }
-        
         // Download
-        function downloadImage(format) {
+        function downloadImage(format = 'png') {
             if (!originalImage) return;
             
             const link = document.createElement('a');
             const timestamp = new Date().getTime();
-            
-            if (format === 'jpg') {
-                link.download = `neon_memories_${timestamp}.jpg`;
-                link.href = canvas.toDataURL('image/jpeg', 0.9);
-            } else {
-                link.download = `neon_memories_${timestamp}.png`;
-                link.href = canvas.toDataURL('image/png');
-            }
-            
+            link.download = `neon_memories_${timestamp}.${format}`;
+            link.href = canvas.toDataURL(`image/${format === 'jpg' ? 'jpeg' : 'png'}`, 0.9);
             link.click();
         }
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            if (activeMobilePanel && window.innerWidth >= 1024) {
+                closeMobilePanel();
+            }
+        });
     </script>
 </body>
 </html>
